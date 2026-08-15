@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PM Smart — Quản lý ngôi nhà thông minh của bạn</title>
+<meta name="description" content="PM Smart — ứng dụng điều khiển nhà thông minh cho iOS. Điều khiển đèn, điều hòa, camera, cửa cổng và tự động hóa. Miễn phí, không quảng cáo.">
+<style>
+  :root{
+    --blue:#0071e3; --blue-hover:#0077ed; --blue-soft:#f0f7ff;
+    --ink:#1d1d1f; --muted:#86868b; --line:#e5e5e7; --bg:#ffffff; --bg2:#f5f5f7;
+    --radius:18px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.47;-webkit-font-smoothing:antialiased;letter-spacing:-0.01em}
+  .wrap{max-width:980px;margin:0 auto;padding:0 22px}
+  section{padding:100px 0}
+  h1,h2,h3{font-weight:600;letter-spacing:-0.025em;line-height:1.08}
+  h1{font-size:clamp(40px,6vw,64px);font-weight:700}
+  h2{font-size:clamp(30px,4vw,44px);text-align:center;margin-bottom:14px}
+  .sub{text-align:center;color:var(--muted);font-size:clamp(18px,2vw,21px);max-width:600px;margin:0 auto 56px;font-weight:400}
+  .eyebrow{text-align:center;color:var(--blue);font-weight:600;font-size:15px;letter-spacing:0;margin-bottom:8px}
+
+  nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.72);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid rgba(0,0,0,.08)}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:52px}
+  .brand{display:flex;align-items:center;gap:9px;font-weight:600;font-size:18px}
+  .logo{width:29px;height:29px;border-radius:8px;object-fit:cover;display:block}
+  .nav-links{display:flex;gap:28px;align-items:center}
+  .nav-links a{color:var(--ink);text-decoration:none;font-size:14px;font-weight:400;opacity:.8}
+  .nav-links a:hover{opacity:1;color:var(--blue)}
+  .lang{display:flex;gap:2px;background:var(--bg2);border-radius:980px;padding:3px}
+  .lang button{border:0;background:none;font-size:12px;font-weight:600;padding:5px 12px;border-radius:980px;cursor:pointer;color:var(--muted)}
+  .lang button.on{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.1)}
+  @media(max-width:760px){.nav-links a{display:none}}
+
+  .hero{text-align:center;padding:100px 0 80px}
+  .hero p.lead{font-size:clamp(21px,2.6vw,28px);font-weight:500;color:var(--ink);max-width:640px;margin:20px auto 8px;letter-spacing:-0.02em}
+  .hero p.lead2{font-size:clamp(19px,2vw,22px);color:var(--muted);margin:0 auto 30px;font-weight:400}
+  .cta-row{display:flex;gap:26px;justify-content:center;flex-wrap:wrap;align-items:center;font-size:19px}
+  .cta-row a.link{color:var(--blue);text-decoration:none;font-weight:400}
+  .cta-row a.link:hover{text-decoration:underline}
+  .btn-store{display:inline-flex;align-items:center;gap:9px;background:var(--blue);color:#fff;padding:12px 26px;border-radius:980px;text-decoration:none;font-size:17px;font-weight:400;transition:background .2s}
+  .btn-store:hover{background:var(--blue-hover)}
+  .shot-img{width:100%;height:auto}
+  /* Hiệu ứng vòng cung: ảnh trái/phải nhỏ + nghiêng vào + lùi xuống; ảnh giữa to + nổi lên */
+  .shot .ph{width:200px;height:432px;border-radius:34px;border:1px solid var(--line);background:var(--bg2);display:flex;align-items:center;justify-content:center}
+  .shot .ph{font-size:13px;text-align:center;padding:20px;color:#aeaeb2}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+  .card{background:var(--bg2);border-radius:var(--radius);padding:32px}
+  .card .fico{width:52px;height:52px;border-radius:14px;background:var(--blue-soft);color:var(--blue);display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+  .card h3{font-size:21px;margin-bottom:8px;font-weight:600}
+  .card p{color:var(--muted);font-size:16px;font-weight:400}
+  .bg2{background:transparent}
+  section.bg2 .wrap{background:var(--bg2);border-radius:32px;padding:80px 40px;max-width:980px}
+  section.bg2 .card{background:#fff}
+  @media(max-width:680px){section.bg2 .wrap{padding:56px 22px;border-radius:24px}}
+
+  .chips{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;max-width:800px;margin:0 auto}
+  .chip{display:flex;align-items:center;gap:9px;background:var(--bg2);border-radius:980px;padding:12px 20px;font-weight:500;font-size:16px;cursor:default;transition:transform .25s ease,box-shadow .25s ease,background .25s ease;opacity:0;transform:translateY(16px)}
+  .chip.in{opacity:1;transform:translateY(0)}
+  .chip:hover{transform:translateY(-4px);background:#fff;box-shadow:0 10px 24px -8px rgba(0,113,227,.28)}
+  .chip:hover .ci{transform:scale(1.15)}
+  .chip .ci{font-size:20px;line-height:1;color:var(--blue);display:flex;align-items:center;transition:transform .25s ease}
+
+  .row{display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px;opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease}
+  .row.in{opacity:1;transform:translateY(0)}
+  .row:nth-child(even){flex-direction:column}
+  .row .txt h3{font-size:20px;margin-bottom:8px;font-weight:600}
+  .row .txt p{color:var(--muted);font-size:15px;line-height:1.5}
+  .row .pic{flex:none;width:180px;display:flex;align-items:center;justify-content:center;perspective:900px}
+  .row .pic img{width:100%;height:auto;filter:drop-shadow(0 20px 36px rgba(0,0,0,.16));transition:transform .35s cubic-bezier(.2,.7,.3,1),filter .35s ease}
+  .row .pic:hover img{transform:translateY(-10px) rotateX(6deg) rotateY(-8deg) scale(1.04);filter:drop-shadow(0 34px 54px rgba(0,0,0,.26))}
+  .action-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:48px 32px;max-width:820px;margin:0 auto}
+  @media(max-width:680px){.action-grid{grid-template-columns:repeat(2,1fr);gap:36px 20px}}
+  .act-img[data-vi]{display:block}
+  .act-img[data-en]{display:none}
+  body.en .act-img[data-vi]{display:none !important}
+  body.en .act-img[data-en]{display:block !important}
+  @media(max-width:680px){.row,.row:nth-child(even){flex-direction:column;gap:20px;text-align:center}.row .pic{width:100%}}
+
+  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:32px}
+  .step{text-align:center}
+  .step .num{width:52px;height:52px;border-radius:50%;background:var(--blue);color:#fff;font-size:22px;font-weight:600;display:flex;align-items:center;justify-content:center;margin:0 auto 18px}
+  .step h3{font-size:21px;margin-bottom:8px;font-weight:600}
+  .step p{color:var(--muted);font-size:16px}
+
+  .freeband{text-align:center;padding:0}
+  .freeband h2{margin-bottom:12px}
+  .freeband p.big{font-size:clamp(21px,2.4vw,26px);color:var(--muted);margin:0 0 30px;font-weight:400}
+  .freeband .pills{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:30px}
+  .freeband .pill{background:var(--bg2);color:var(--ink);padding:9px 18px;border-radius:980px;font-size:14px;font-weight:500}
+
+  .faq{max-width:760px;margin:0 auto}
+  .qa{border-bottom:1px solid var(--line)}
+  .qa summary{cursor:pointer;padding:24px 0;font-weight:600;font-size:19px;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:20px}
+  .qa summary::-webkit-details-marker{display:none}
+  .qa summary::after{content:"+";color:var(--blue);font-size:26px;font-weight:300;flex-shrink:0}
+  .qa[open] summary::after{content:"\2212"}
+  .qa p{padding:0 0 24px;color:var(--muted);font-size:16px}
+
+  footer{border-top:1px solid var(--line);padding:44px 0;background:var(--bg2)}
+  footer .fbrand{display:flex;align-items:center;justify-content:center;gap:9px;font-weight:600;margin-bottom:16px}
+  footer .flinks{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin-bottom:18px}
+  footer .flinks a{color:var(--muted);text-decoration:none;font-size:14px}
+  footer .flinks a:hover{color:var(--blue)}
+  footer .fine{color:#aeaeb2;font-size:12px;max-width:600px;margin:0 auto;text-align:center}
+
+  /* Ẩn/hiện theo ngôn ngữ. Mặc định (VI): ẩn mọi phần tử data-en.
+     !important để thắng display riêng của <summary>. */
+  [data-en]{display:none !important}
+  summary[data-vi]{display:flex !important}
+  .shots{position:relative;height:440px;margin-top:64px}
+  .shot{position:absolute;left:50%;bottom:0;width:190px;margin-left:-95px;transition:transform .55s cubic-bezier(.4,.9,.3,1),opacity .55s;transform-origin:bottom center}
+  .shot img{width:100%;height:auto;object-fit:contain;transform:translateZ(0);image-rendering:auto}
+  .shot.p0{transform:translateX(0) translateY(-14px) scale(1.02);z-index:10;cursor:default}
+  .shot.p0 img{filter:drop-shadow(0 26px 46px rgba(0,0,0,.22))}
+  .shot.p1L{transform:translateX(-118px) translateY(16px) scale(.82) rotate(-8deg);z-index:9;cursor:pointer}
+  .shot.p1R{transform:translateX(118px) translateY(16px) scale(.82) rotate(8deg);z-index:9;cursor:pointer}
+  .shot.p2L{transform:translateX(-210px) translateY(52px) scale(.66) rotate(-15deg);z-index:8;cursor:pointer;opacity:.9}
+  .shot.p2R{transform:translateX(210px) translateY(52px) scale(.66) rotate(15deg);z-index:8;cursor:pointer;opacity:.9}
+  .shot.p3L{transform:translateX(-280px) translateY(100px) scale(.5) rotate(-21deg);z-index:7;cursor:pointer;opacity:.75}
+  .shot.p3R{transform:translateX(280px) translateY(100px) scale(.5) rotate(21deg);z-index:7;cursor:pointer;opacity:.75}
+  .shot.p1L:hover,.shot.p1R:hover,.shot.p2L:hover,.shot.p2R:hover,.shot.p3L:hover,.shot.p3R:hover{opacity:1}
+  @media(max-width:760px){
+    .shots{height:460px;position:relative;display:block;overflow:hidden;margin-top:40px;transform:translateZ(0)}
+    .shot{position:absolute;left:50%;top:10px;width:190px;margin-left:-95px;
+      transition:transform .45s cubic-bezier(.3,.8,.3,1),opacity .45s;opacity:1!important;
+      will-change:transform,opacity;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+    /* 3 vị trí trên mobile: giữa, hé trái, hé phải; còn lại ẩn */
+    .shot.m-center{transform:translate3d(0,0,0) scale(1);z-index:5;opacity:1!important}
+    .shot.m-left{transform:translate3d(-135px,0,0) scale(.78);z-index:3;opacity:.5!important;cursor:pointer}
+    .shot.m-right{transform:translate3d(135px,0,0) scale(.78);z-index:3;opacity:.5!important;cursor:pointer}
+    .shot.m-left img,.shot.m-right img{pointer-events:none}
+    .shot.m-hidden{transform:translate3d(0,0,0) scale(.7);z-index:1;opacity:0!important;pointer-events:none}
+    .shot.m-hidden.hL{transform:translate3d(-260px,0,0) scale(.66)}
+    .shot.m-hidden.hR{transform:translate3d(260px,0,0) scale(.66)}
+    .m-nav{display:flex;position:absolute;bottom:-8px;left:0;right:0;justify-content:center;gap:8px;z-index:20}
+    .m-dot{width:8px;height:8px;border-radius:50%;background:var(--line);border:0;padding:0;cursor:pointer;transition:background .2s,width .2s}
+    .m-dot.on{background:var(--blue);width:20px;border-radius:4px}
+    .m-nav{display:flex!important}
+  }
+  /* Ẩn nav mobile trên desktop */
+  .m-nav{display:none}
+  .shot-img[data-vi]{display:block !important}
+  body.en [data-vi]{display:none !important}
+  body.en [data-en]{display:revert !important}
+  body.en summary[data-en]{display:flex !important}
+  body.en .shot-img[data-vi]{display:none !important}
+  body.en .shot-img[data-en]{display:block !important}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-in">
+    <div class="brand"><img class="logo" src="logo.png" alt="PM Smart"> PM Smart</div>
+    <div class="nav-links">
+      <a href="#features" data-vi>Tính năng</a><a href="#features" data-en>Features</a>
+      <a href="#action" data-vi>Trải nghiệm</a><a href="#action" data-en>In action</a>
+      <a href="#devices" data-vi>Thiết bị</a><a href="#devices" data-en>Devices</a>
+      <a href="#faq" data-vi>Hỏi đáp</a><a href="#faq" data-en>FAQ</a>
+      <div class="lang">
+        <button class="on" onclick="setLang('vi')" id="l-vi">VI</button>
+        <button onclick="setLang('en')" id="l-en">EN</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <h1 data-vi>PM Smart</h1>
+    <h1 data-en>PM Smart</h1>
+    <p class="lead" data-vi>Quản lý ngôi nhà thông minh của bạn.</p>
+    <p class="lead" data-en>Manage your smart home.</p>
+    <p class="lead2" data-vi>Điều khiển đèn, điều hòa, camera và cửa cổng. Nhanh, mượt, riêng tư.</p>
+    <p class="lead2" data-en>Control lights, climate, cameras and gates. Fast, smooth, private.</p>
+    <div class="cta-row">
+      <a class="btn-store" href="#download"><span data-vi>Tải qua TestFlight</span><span data-en>Get it on TestFlight</span></a>
+      <a class="link" href="#features" data-vi>Tìm hiểu thêm ›</a>
+      <a class="link" href="#features" data-en>Learn more ›</a>
+    </div>
+            <div class="shots">
+      <div class="shot"><img class="shot-img" data-vi src="shots/hero-weather-vi.png" alt="Thời tiết"><img class="shot-img" data-en src="shots/hero-weather-en.png" alt="Weather"></div>
+      <div class="shot"><img class="shot-img" data-vi src="shots/hero-device-vi.png" alt="Thiết bị"><img class="shot-img" data-en src="shots/hero-device-en.png" alt="Devices"></div>
+      <div class="shot"><img class="shot-img" data-vi src="shots/hero-room-vi.png" alt="Phòng"><img class="shot-img" data-en src="shots/hero-room-en.png" alt="Rooms"></div>
+      <div class="shot"><img class="shot-img" data-vi src="shots/hero-detail-vi.png" alt="Chi tiết phòng"><img class="shot-img" data-en src="shots/hero-detail-en.png" alt="Room detail"></div>
+      <div class="shot"><img class="shot-img" data-vi src="shots/hero-setting-vi.png" alt="Cài đặt"><img class="shot-img" data-en src="shots/hero-setting-en.png" alt="Settings"></div>
+      <div class="shot"><img class="shot-img" data-vi src="shots/hero-server-vi.png" alt="Máy chủ"><img class="shot-img" data-en src="shots/hero-server-en.png" alt="Server"></div>
+      <div class="shot"><img class="shot-img" data-vi src="shots/hero-profile-vi.png" alt="Hồ sơ"><img class="shot-img" data-en src="shots/hero-profile-en.png" alt="Profiles"></div>
+      <div class="m-nav" id="mDots"></div>
+    </div>
+  </div>
+</header>
+
+<section id="features">
+  <div class="wrap">
+    <div class="eyebrow" data-vi>Tính năng</div><div class="eyebrow" data-en>Features</div>
+    <h2 data-vi>Mọi thứ bạn cần</h2><h2 data-en>Everything you need</h2>
+    <p class="sub" data-vi>Thiết kế riêng cho iOS — nhanh, trực quan, cập nhật thời gian thực.</p>
+    <p class="sub" data-en>Built for iOS — fast, intuitive, always up to date.</p>
+    <div class="grid">
+      <div class="card"><div class="fico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7z"/></svg></div><h3 data-vi>Cập nhật thời gian thực</h3><h3 data-en>Real-time updates</h3><p data-vi>Kết nối WebSocket giữ trạng thái thiết bị luôn trực tiếp. Bật đèn là thấy phản hồi ngay.</p><p data-en>A WebSocket connection keeps every device live. Toggle a light and see it respond instantly.</p></div>
+      <div class="card"><div class="fico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2z"/><path d="m16 10 6-3v10l-6-3"/></svg></div><h3 data-vi>Camera trực tiếp</h3><h3 data-en>Live cameras</h3><p data-vi>Xem camera nhà mượt mà ngay trong app, ngay trên màn hình chính và trong từng phòng.</p><p data-en>Watch your home cameras smoothly right in the app — on the home screen and in each room.</p></div>
+      <div class="card"><div class="fico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V9l6-4 6 4M15 9l6 4v8M3 21h18M8 21v-5h4v5"/></svg></div><h3 data-vi>Quản lý nhiều nhà</h3><h3 data-en>Multiple homes</h3><p data-vi>Nhà riêng, nhà trọ, văn phòng — mỗi nơi một hồ sơ, chuyển đổi chỉ trong một chạm.</p><p data-en>Home, rental, office — each gets its own profile, switch between them in one tap.</p></div>
+      <div class="card"><div class="fico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg></div><h3 data-vi>Tự động hóa</h3><h3 data-en>Automation</h3><p data-vi>Tạo kịch bản tự động theo giờ, cảm biến, hay sự kiện. Xem lịch sử chạy chi tiết.</p><p data-en>Create automations by time, sensor or event. View a detailed run history.</p></div>
+      <div class="card"><div class="fico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg></div><h3 data-vi>Widget màn hình chính</h3><h3 data-en>Home screen widgets</h3><p data-vi>Hơn 18 loại widget: đèn, điều hòa, cửa, cảnh, cảm biến — điều khiển không cần mở app.</p><p data-en>Over 18 widget types: lights, AC, covers, scenes, sensors — control without opening the app.</p></div>
+      <div class="card"><div class="fico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 18v4M8 22h8"/></svg></div><h3 data-vi>Siri &amp; giọng nói</h3><h3 data-en>Siri &amp; voice</h3><p data-vi>Ra lệnh bằng Siri để bật tắt thiết bị, chỉnh độ sáng, nhiệt độ hay kích hoạt cảnh.</p><p data-en>Use Siri to toggle devices, set brightness or temperature, and activate scenes.</p></div>
+      <div class="card"><div class="fico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0-6 6c0 5-2 6-2 6h16s-2-1-2-6a6 6 0 0 0-6-6zM10 19a2 2 0 0 0 4 0"/></svg></div><h3 data-vi>Thông báo đẩy</h3><h3 data-en>Push notifications</h3><p data-vi>Nhận thông báo tức thì cho mọi tự động hóa hay cảnh báo, gửi thẳng về iPhone.</p><p data-en>Get instant push notifications for any automation or alert, straight to your iPhone.</p></div>
+      <div class="card"><div class="fico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div><h3 data-vi>Riêng tư tuyệt đối</h3><h3 data-en>Truly private</h3><p data-vi>Thông tin lưu trong iOS Keychain. Không thu thập dữ liệu, không quảng cáo, không máy chủ trung gian.</p><p data-en>Credentials stay in the iOS Keychain. No data collection, no ads, no middleman servers.</p></div>
+      <div class="card"><div class="fico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18M7 15l3-4 3 3 4-6"/></svg></div><h3 data-vi>Theo dõi điện năng</h3><h3 data-en>Energy monitoring</h3><p data-vi>Xem công suất tức thời và điện năng tiêu thụ theo ngày, tuần cho từng thiết bị.</p><p data-en>See live power and daily or weekly energy usage for each device.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="action" class="bg2">
+  <div class="wrap">
+    <div class="eyebrow" data-vi>Trải nghiệm</div><div class="eyebrow" data-en>In action</div>
+    <h2 data-vi>Nhìn là muốn dùng</h2><h2 data-en>See it in action</h2>
+    <p class="sub" data-vi>Một vài màn hình tiêu biểu đang chờ bạn.</p>
+    <p class="sub" data-en>A glimpse of what's waiting for you.</p>
+    <div class="action-grid">
+      <div class="row">
+        <div class="pic">
+          <img class="act-img" data-vi src="shots/act-home-vi.png" alt="Trang chủ">
+          <img class="act-img" data-en src="shots/act-home-en.png" alt="Home dashboard">
+        </div>
+        <div class="txt"><h3 data-vi>Trang chủ</h3><h3 data-en>Home dashboard</h3><p data-vi>Toàn bộ nhà bạn trong một màn hình — thời tiết, thiết bị yêu thích, camera trực tiếp và các phòng kèm trạng thái.</p><p data-en>Your entire home at a glance — weather, favourites, live cameras and rooms with device status.</p></div>
+      </div>
+      <div class="row">
+        <div class="pic">
+          <img class="act-img" data-vi src="shots/act-light-vi.png" alt="Điều khiển đèn">
+          <img class="act-img" data-en src="shots/act-light-en.png" alt="Light control">
+        </div>
+        <div class="txt"><h3 data-vi>Điều khiển đèn</h3><h3 data-en>Light control</h3><p data-vi>Kéo thanh trượt độ sáng, chọn màu và nhiệt độ màu. Mượt mà cho mọi loại đèn trong nhà.</p><p data-en>Drag the brightness slider, pick a colour and temperature. Smooth control for every light.</p></div>
+      </div>
+      <div class="row">
+        <div class="pic">
+          <img class="act-img" data-vi src="shots/act-climate-vi.png" alt="Điều hòa">
+          <img class="act-img" data-en src="shots/act-climate-en.png" alt="Climate control">
+        </div>
+        <div class="txt"><h3 data-vi>Điều hòa</h3><h3 data-en>Climate control</h3><p data-vi>Vòng chỉnh nhiệt độ trực quan cùng chế độ, quạt gió và hẹn giờ — tất cả trên một màn hình.</p><p data-en>An interactive temperature dial with modes, fan speed and timers, all on one screen.</p></div>
+      </div>
+      <div class="row">
+        <div class="pic">
+          <img class="act-img" data-vi src="shots/act-gate-vi.png" alt="Cửa cổng">
+          <img class="act-img" data-en src="shots/act-gate-en.png" alt="Gates &amp; covers">
+        </div>
+        <div class="txt"><h3 data-vi>Cửa cổng</h3><h3 data-en>Gates &amp; covers</h3><p data-vi>Mở, dừng, đóng cổng kéo, cổng trượt, rèm và cửa cuốn — kèm camera trực tiếp ngay trong màn điều khiển.</p><p data-en>Open, stop and close sliding gates, curtains and shutters — with a live camera right in the control view.</p></div>
+      </div>
+      <div class="row">
+        <div class="pic">
+          <img class="act-img" data-vi src="shots/act-alarm-vi.png" alt="Báo động &amp; an ninh">
+          <img class="act-img" data-en src="shots/act-alarm-en.png" alt="Alarm &amp; security">
+        </div>
+        <div class="txt"><h3 data-vi>Báo động &amp; an ninh</h3><h3 data-en>Alarm &amp; security</h3><p data-vi>Bật tắt hệ thống báo động một chạm, xem cảm biến cửa, chuyển động, và camera an ninh.</p><p data-en>Arm and disarm in one tap, view door and motion sensors, and security cameras.</p></div>
+      </div>
+      <div class="row">
+        <div class="pic">
+          <img class="act-img" data-vi src="shots/act-widget-vi.png" alt="Widget">
+          <img class="act-img" data-en src="shots/act-widget-en.png" alt="Widget">
+        </div>
+        <div class="txt"><h3 data-vi>Widget màn hình chính</h3><h3 data-en>Home screen widgets</h3><p data-vi>Hơn 18 loại widget: đèn, điều hòa, cửa, cảnh, cảm biến — bật tắt ngay trên màn hình chính, không cần mở app.</p><p data-en>Over 18 widget types: lights, AC, covers, scenes, sensors — toggle right from your home screen without opening the app.</p></div>
+      </div>
+    
+    </div>
+  </div>
+</section>
+
+<section id="devices">
+  <div class="wrap">
+    <div class="eyebrow" data-vi>Điều khiển được</div><div class="eyebrow" data-en>Supported</div>
+    <h2 data-vi>Mọi ngóc ngách trong nhà</h2><h2 data-en>Every corner of your home</h2>
+    <p class="sub" data-vi>PM Smart hỗ trợ hơn 15 nhóm thiết bị phổ biến.</p>
+    <p class="sub" data-en>PM Smart supports over 15 common device categories.</p>
+    <div class="chips">
+      <div class="chip"><span class="ci"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.5.5 1 1.5 1 2.5h6c0-1 .5-2 1-2.5A6 6 0 0 0 12 3z"/></svg></span><span data-vi>Đèn</span><span data-en>Lights</span></div>
+      <div class="chip"><span class="ci"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M4.2 7l15.6 10M4.2 17 19.8 7"/><path d="M12 6l-2.5-1.5M12 6l2.5-1.5M12 18l-2.5 1.5M12 18l2.5 1.5M5.5 9.5 5 6.7M5.5 9.5 2.7 10M18.5 14.5l.5 2.8M18.5 14.5l2.8-.3M5.5 14.5 5 17.3M5.5 14.5l-2.8-.3M18.5 9.5l.5-2.8M18.5 9.5l2.8.3"/></svg></span><span data-vi>Điều hòa</span><span data-en>Climate</span></div>
+      <div class="chip"><span class="ci"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1.5"/><path d="M12 12c0-3 1-6 3-6s3 3 0 6M12 12c3 0 6 1 6 3s-3 3-6 0M12 12c0 3-1 6-3 6s-3-3 0-6M12 12c-3 0-6-1-6-3s3-3 6 0"/></svg></span><span data-vi>Quạt</span><span data-en>Fans</span></div>
+      <div class="chip"><span class="ci"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="3" width="12" height="18" rx="2"/><path d="M9 8h6M9 12h6M10 16h4"/></svg></span><span data-vi>Máy lọc khí</span><span data-en>Air purifier</span></div>
+      <div class="chip"><span class="ci"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6 6 10a6 6 0 0 1-12 0c0-4 6-10 6-10z"/></svg></span><span data-vi>Máy hút ẩm</span><span data-en>Dehumidifier</span></div>
+      <div class="chip"><span class="ci"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18M4 3v18M20 3v18M8 3c0 6-1 12-4 15M16 3c0 6 1 12 4 15M12 3v18"/></svg></span><span data-vi>Rèm &amp; cửa</span><span data-en>Covers</span></div>
+      <div class="chip"><span class="ci"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V8l9-5 9 5v13M3 21h18M9 21v-6h6v6M12 3v5"/></svg></span><span data-vi>Cổng</span><span data-en>Gates</span></div>
+      <div class="chip"><span class="ci"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span><span data-vi>Khóa cửa</span><span data-en>Locks</span></div>
+      <div class="chip"><span class="ci"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0-6 6c0 5-2 6-2 6h16s-2-1-2-6a6 6 0 0 0-6-6zM10 19a2 2 0 0 0 4 0"/></svg></span><span data-vi>Báo động</span><span data-en>Alarm</span></div>
+      <div class="chip"><span class="ci"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M8 22h8M12 18v4M10 9l4 2.5-4 2.5z"/></svg></span><span data-vi>Media &amp; TV</span><span data-en>Media &amp; TV</span></div>
+      <div class="chip"><span class="ci"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9v2M15 9v2M9 15h6"/></svg></span><span data-vi>Ổ cắm &amp; công tắc</span><span data-en>Switches</span></div>
+      <div class="chip"><span class="ci"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><circle cx="12" cy="13" r="3"/><path d="M12 5V3M8 4l1 2M16 4l-1 2"/></svg></span><span data-vi>Robot hút bụi</span><span data-en>Vacuum</span></div>
+      <div class="chip"><span class="ci"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2z"/><path d="m16 10 6-3v10l-6-3"/></svg></span><span data-vi>Camera</span><span data-en>Cameras</span></div>
+      <div class="chip"><span class="ci"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.5 6L21 9.5l-5 4 1.5 6.5L12 16.5 6.5 20 8 13.5l-5-4L9.5 9z"/></svg></span><span data-vi>Cảnh &amp; kịch bản</span><span data-en>Scenes &amp; scripts</span></div>
+      <div class="chip"><span class="ci"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7z"/></svg></span><span data-vi>Đo điện năng</span><span data-en>Energy monitoring</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="bg2">
+  <div class="wrap">
+    <div class="eyebrow" data-vi>Bắt đầu</div><div class="eyebrow" data-en>Getting started</div>
+    <h2 data-vi>Sẵn sàng trong vài phút</h2><h2 data-en>Up and running in minutes</h2>
+    <p class="sub" data-vi>Không cấu hình phức tạp. Chỉ cần trỏ PM Smart tới máy chủ của bạn.</p>
+    <p class="sub" data-en>No complicated setup. Just point PM Smart at your server.</p>
+    <div class="steps">
+      <div class="step"><div class="num">1</div><h3 data-vi>Kết nối</h3><h3 data-en>Connect</h3><p data-vi>Nhập địa chỉ máy chủ và đăng nhập an toàn. Thông tin lưu trong iOS Keychain.</p><p data-en>Enter your server URL and log in securely. Credentials are stored in the iOS Keychain.</p></div>
+      <div class="step"><div class="num">2</div><h3 data-vi>Thiết lập</h3><h3 data-en>Configure</h3><p data-vi>Chọn thiết bị bạn muốn điều khiển và sắp xếp chúng vào từng phòng.</p><p data-en>Pick the devices you want to control and organise them into rooms.</p></div>
+      <div class="step"><div class="num">3</div><h3 data-vi>Điều khiển</h3><h3 data-en>Control</h3><p data-vi>Nhà bạn đã sẵn sàng. Chạm để bật tắt, xem trạng thái thay đổi tức thời.</p><p data-en>Your home is live. Tap to toggle and watch real-time changes happen.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="download">
+  <div class="wrap freeband">
+    <div class="eyebrow" data-vi>Miễn phí</div><div class="eyebrow" data-en>Free</div>
+    <h2 data-vi>Hoàn toàn miễn phí.</h2><h2 data-en>Completely free.</h2>
+    <p class="big" data-vi>Không giới hạn thiết bị. Không quảng cáo. Không mua trong ứng dụng.</p>
+    <p class="big" data-en>No device limits. No ads. No in-app purchases.</p>
+    <a class="btn-store" href="https://testflight.apple.com/join/ZTkgReTS"><span data-vi>Tải qua TestFlight</span><span data-en>Get it on TestFlight</span></a>
+    <p style="font-size:13px;color:var(--muted);margin-top:14px" data-vi>Đang trong giai đoạn thử nghiệm qua TestFlight. Cần cài ứng dụng TestFlight của Apple.</p>
+    <p style="font-size:13px;color:var(--muted);margin-top:14px" data-en>Currently in beta via TestFlight. Requires Apple's TestFlight app.</p>
+    <div class="pills">
+      <span class="pill" data-vi>Không giới hạn</span><span class="pill" data-en>Unlimited</span>
+      <span class="pill" data-vi>Không quảng cáo</span><span class="pill" data-en>No ads</span>
+      <span class="pill" data-vi>Riêng tư</span><span class="pill" data-en>Private</span>
+      <span class="pill" data-vi>Nhiều nhà</span><span class="pill" data-en>Multi-home</span>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="eyebrow">FAQ</div>
+    <h2 data-vi>Câu hỏi thường gặp</h2><h2 data-en>Frequently asked</h2>
+    <div class="faq" style="margin-top:30px">
+      <details class="qa"><summary data-vi>Tôi có cần máy chủ Home Assistant không?</summary><summary data-en>Do I need a Home Assistant server?</summary><p data-vi>Có. PM Smart là ứng dụng điều khiển kết nối tới máy chủ Home Assistant của bạn qua mạng nội bộ hoặc từ xa. Bạn cần một máy chủ đang chạy và truy cập được từ thiết bị.</p><p data-en>Yes. PM Smart is a client app that connects to your Home Assistant server over your local network or remotely. You need a running server reachable from your device.</p></details>
+      <details class="qa"><summary data-vi>PM Smart có phải app chính thức của Home Assistant không?</summary><summary data-en>Is PM Smart the official Home Assistant app?</summary><p data-vi>Không. PM Smart là ứng dụng độc lập của bên thứ ba, sử dụng API mở của Home Assistant nhưng không liên kết với dự án Home Assistant hay Nabu Casa.</p><p data-en>No. PM Smart is an independent, third-party app. It uses Home Assistant's open APIs but is not affiliated with the Home Assistant project or Nabu Casa.</p></details>
+      <details class="qa"><summary data-vi>App chạy trên thiết bị nào?</summary><summary data-en>What devices does it run on?</summary><p data-vi>PM Smart chạy trên iPhone với iOS 18 trở lên. Có widget màn hình chính và hỗ trợ Siri Shortcuts.</p><p data-en>PM Smart runs on iPhone with iOS 18 or later. It includes home screen widgets and Siri Shortcuts support.</p></details>
+      <details class="qa"><summary data-vi>App có dùng được từ xa, ngoài mạng nhà không?</summary><summary data-en>Does it work remotely, outside my home network?</summary><p data-vi>Có, miễn là máy chủ của bạn truy cập được từ xa — qua Nabu Casa, reverse proxy hoặc VPN. PM Smart kết nối tới địa chỉ bạn cung cấp, nội bộ hay từ xa đều được.</p><p data-en>Yes, as long as your server is reachable remotely — via Nabu Casa, a reverse proxy or a VPN. PM Smart connects to whatever URL you provide.</p></details>
+      <details class="qa"><summary data-vi>App có thu thập dữ liệu của tôi không?</summary><summary data-en>Does it collect my data?</summary><p data-vi>Không. PM Smart chỉ giao tiếp với máy chủ của bạn — không phân tích, không theo dõi, không máy chủ trung gian. Thông tin đăng nhập lưu trong iOS Keychain.</p><p data-en>No. PM Smart communicates only with your server — no analytics, no tracking, no middleman. Credentials are stored in the iOS Keychain.</p></details>
+      <details class="qa"><summary data-vi>App có thật sự miễn phí không?</summary><summary data-en>Is it really free?</summary><p data-vi>Có. PM Smart hoàn toàn miễn phí, không giới hạn thiết bị, không quảng cáo, không mua trong ứng dụng.</p><p data-en>Yes. PM Smart is completely free — no device limits, no ads, no in-app purchases.</p></details>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fbrand"><img class="logo" src="logo.png" alt="PM Smart" style="width:26px;height:26px"> PM Smart</div>
+    <div class="flinks">
+      <a href="#features" data-vi>Tính năng</a><a href="#features" data-en>Features</a>
+      <a href="privacy.html" data-vi>Chính sách bảo mật</a><a href="privacy.html" data-en>Privacy Policy</a>
+      <a href="mailto:phuocmanp@gmail.com">phuocmanp@gmail.com</a>
+    </div>
+    <p class="fine" data-vi>PM Smart là ứng dụng độc lập, không liên kết với dự án Home Assistant hay Nabu Casa. © 2026 PM Smart.</p>
+    <p class="fine" data-en>PM Smart is an independent app, not affiliated with the Home Assistant project or Nabu Casa. © 2026 PM Smart.</p>
+  </div>
+</footer>
+
+<script>
+  function setLang(l){
+    document.body.classList.toggle('en', l==='en');
+    document.documentElement.lang = l;
+    document.getElementById('l-vi').classList.toggle('on', l==='vi');
+    document.getElementById('l-en').classList.toggle('on', l==='en');
+    try{ localStorage.setItem('pmsmart_lang', l); }catch(e){}
+  }
+  (function(){
+    var saved;
+    try{ saved = localStorage.getItem('pmsmart_lang'); }catch(e){}
+    if(!saved){ saved = (navigator.language||'').toLowerCase().startsWith('vi') ? 'vi' : 'en'; }
+    setLang(saved);
+  })();
+
+  // Fade-in các chip thiết bị + ô Trải nghiệm khi cuộn tới
+  (function(){
+    var items = document.querySelectorAll('.chip, .row');
+    if(!items.length) return;
+    if(!('IntersectionObserver' in window)){
+      items.forEach(function(c){ c.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          var group = e.target.classList.contains('chip') ? '.chip' : '.row';
+          var all = Array.prototype.slice.call(document.querySelectorAll(group));
+          var i = all.indexOf(e.target);
+          e.target.style.transitionDelay = (i % 6 * 60) + 'ms';
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    items.forEach(function(c){ io.observe(c); });
+  })();
+
+
+
+  // Carousel cánh quạt 7 ảnh: click ảnh bên -> xoay vòng vào giữa
+  (function(){
+    var shots = Array.prototype.slice.call(document.querySelectorAll('.shots .shot'));
+    var n = shots.length;
+    if(n < 3) return;
+    if(window.matchMedia('(max-width:760px)').matches) return; // mobile dùng vòng tròn 3D tự xoay
+    var center = Math.floor(n/2); // vị trí giữa trong mảng order
+    var order = shots.map(function(_,i){ return i; }); // order[k] = index shot ở vị trí k
+    var posClass = ['p3L','p2L','p1L','p0','p1R','p2R','p3R']; // cho 7 ảnh
+    function render(){
+      order.forEach(function(shotIdx, k){
+        shots[shotIdx].className = 'shot ' + (posClass[k] || 'p3R');
+      });
+    }
+    render();
+    shots.forEach(function(shot, idx){
+      shot.addEventListener('click', function(){
+        var k = order.indexOf(idx);
+        if(k === center) return; // đã ở giữa
+        var steps = k - center; // >0: bên phải, <0: bên trái
+        // xoay order để đưa vị trí k về center
+        if(steps > 0){
+          for(var s=0;s<steps;s++){ order.push(order.shift()); }
+        } else {
+          for(var s=0;s<-steps;s++){ order.unshift(order.pop()); }
+        }
+        render();
+      });
+    });
+  })();
+
+  // Mobile carousel: bấm nút/chấm để chuyển ảnh
+  (function(){
+    var mq = window.matchMedia('(max-width:760px)');
+    var shots = Array.prototype.slice.call(document.querySelectorAll('.shots .shot'));
+    var dots = document.getElementById('mDots');
+    if(!shots.length || !dots) return;
+    var cur = Math.floor(shots.length/2); // bắt đầu ở giữa
+    // tạo chấm
+    shots.forEach(function(_, i){
+      var d = document.createElement('button');
+      d.className = 'm-dot' + (i===cur?' on':'');
+      d.addEventListener('click', function(){ cur = i; render(); });
+      dots.appendChild(d);
+    });
+    function render(){
+      if(!mq.matches){ shots.forEach(function(s){ s.classList.remove('m-center','m-left','m-right','m-hidden','hL','hR'); }); return; }
+      shots.forEach(function(s, i){
+        s.classList.remove('m-center','m-left','m-right','m-hidden','hL','hR');
+        if(i===cur) s.classList.add('m-center');
+        else if(i===(cur-1+shots.length)%shots.length) s.classList.add('m-left');
+        else if(i===(cur+1)%shots.length) s.classList.add('m-right');
+        else {
+          s.classList.add('m-hidden');
+          // ảnh ẩn: xếp lệch về phía gần nhất để trượt ngang, không mờ giữa màn
+          var d=(i-cur+shots.length)%shots.length;
+          if(d<=shots.length/2) s.classList.add('hR'); else s.classList.add('hL');
+        }
+      });
+      Array.prototype.forEach.call(dots.children, function(d,i){ d.classList.toggle('on', i===cur); });
+    }
+    // chạm ảnh bên trái/phải để chuyển
+    shots.forEach(function(s, i){
+      s.addEventListener('click', function(){
+        if(!mq.matches) return;
+        if(s.classList.contains('m-left')){ cur=(cur-1+shots.length)%shots.length; render(); }
+        else if(s.classList.contains('m-right')){ cur=(cur+1)%shots.length; render(); }
+      });
+    });
+    // vuốt tay
+    var x0=null;
+    document.querySelector('.shots').addEventListener('touchstart', function(e){ x0=e.touches[0].clientX; }, {passive:true});
+    document.querySelector('.shots').addEventListener('touchend', function(e){
+      if(x0===null) return;
+      var dx=e.changedTouches[0].clientX-x0;
+      if(Math.abs(dx)>40){ if(dx<0) cur=(cur+1)%shots.length; else cur=(cur-1+shots.length)%shots.length; render(); }
+      x0=null;
+    }, {passive:true});
+    mq.addEventListener('change', render);
+    render();
+  })();
+</script>
+
+</body>
+</html>
