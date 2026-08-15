@@ -149,6 +149,11 @@
   body.en summary[data-en]{display:flex !important}
   body.en .shot-img[data-vi]{display:none !important}
   body.en .shot-img[data-en]{display:block !important}
+  /* Mobile: luôn ẩn link nav dù đang VI hay EN */
+  @media(max-width:760px){
+    .nav-links a[data-vi],.nav-links a[data-en]{display:none !important}
+    body.en .nav-links a[data-en]{display:none !important}
+  }
 </style>
 </head>
 <body>
