@@ -110,7 +110,6 @@
   /* Ẩn/hiện theo ngôn ngữ. Mặc định (VI): ẩn mọi phần tử data-en.
      !important để thắng display riêng của <summary>. */
   [data-en]{display:none !important}
-  summary[data-vi]{display:flex !important}
   .shots{position:relative;height:440px;margin-top:64px}
   .shot{position:absolute;left:50%;bottom:0;width:190px;margin-left:-95px;transition:transform .55s cubic-bezier(.4,.9,.3,1),opacity .55s;transform-origin:bottom center}
   .shot img{width:100%;height:auto;object-fit:contain;transform:translateZ(0);image-rendering:auto}
@@ -146,7 +145,6 @@
   .shot-img[data-vi]{display:block !important}
   body.en [data-vi]{display:none !important}
   body.en [data-en]{display:revert !important}
-  body.en summary[data-en]{display:flex !important}
   body.en .shot-img[data-vi]{display:none !important}
   body.en .shot-img[data-en]{display:block !important}
   /* Mobile: luôn ẩn link nav dù đang VI hay EN */
@@ -337,12 +335,12 @@
     <div class="eyebrow">FAQ</div>
     <h2 data-vi>Câu hỏi thường gặp</h2><h2 data-en>Frequently asked</h2>
     <div class="faq" style="margin-top:30px">
-      <details class="qa"><summary data-vi>Tôi có cần máy chủ Home Assistant không?</summary><summary data-en>Do I need a Home Assistant server?</summary><p data-vi>Có. PM Smart là ứng dụng điều khiển kết nối tới máy chủ Home Assistant của bạn qua mạng nội bộ hoặc từ xa. Bạn cần một máy chủ đang chạy và truy cập được từ thiết bị.</p><p data-en>Yes. PM Smart is a client app that connects to your Home Assistant server over your local network or remotely. You need a running server reachable from your device.</p></details>
-      <details class="qa"><summary data-vi>PM Smart có phải app chính thức của Home Assistant không?</summary><summary data-en>Is PM Smart the official Home Assistant app?</summary><p data-vi>Không. PM Smart là ứng dụng độc lập của bên thứ ba, sử dụng API mở của Home Assistant nhưng không liên kết với dự án Home Assistant hay Nabu Casa.</p><p data-en>No. PM Smart is an independent, third-party app. It uses Home Assistant's open APIs but is not affiliated with the Home Assistant project or Nabu Casa.</p></details>
-      <details class="qa"><summary data-vi>App chạy trên thiết bị nào?</summary><summary data-en>What devices does it run on?</summary><p data-vi>PM Smart chạy trên iPhone với iOS 18 trở lên. Có widget màn hình chính và hỗ trợ Siri Shortcuts.</p><p data-en>PM Smart runs on iPhone with iOS 18 or later. It includes home screen widgets and Siri Shortcuts support.</p></details>
-      <details class="qa"><summary data-vi>App có dùng được từ xa, ngoài mạng nhà không?</summary><summary data-en>Does it work remotely, outside my home network?</summary><p data-vi>Có, miễn là máy chủ của bạn truy cập được từ xa — qua Nabu Casa, reverse proxy hoặc VPN. PM Smart kết nối tới địa chỉ bạn cung cấp, nội bộ hay từ xa đều được.</p><p data-en>Yes, as long as your server is reachable remotely — via Nabu Casa, a reverse proxy or a VPN. PM Smart connects to whatever URL you provide.</p></details>
-      <details class="qa"><summary data-vi>App có thu thập dữ liệu của tôi không?</summary><summary data-en>Does it collect my data?</summary><p data-vi>Không. PM Smart chỉ giao tiếp với máy chủ của bạn — không phân tích, không theo dõi, không máy chủ trung gian. Thông tin đăng nhập lưu trong iOS Keychain.</p><p data-en>No. PM Smart communicates only with your server — no analytics, no tracking, no middleman. Credentials are stored in the iOS Keychain.</p></details>
-      <details class="qa"><summary data-vi>App có thật sự miễn phí không?</summary><summary data-en>Is it really free?</summary><p data-vi>Có. PM Smart hoàn toàn miễn phí, không giới hạn thiết bị, không quảng cáo, không mua trong ứng dụng.</p><p data-en>Yes. PM Smart is completely free — no device limits, no ads, no in-app purchases.</p></details>
+      <details class="qa"><summary><span data-vi>Tôi có cần máy chủ Home Assistant không?</span><span data-en>Do I need a Home Assistant server?</span></summary><p data-vi>Có. PM Smart là ứng dụng điều khiển kết nối tới máy chủ Home Assistant của bạn qua mạng nội bộ hoặc từ xa. Bạn cần một máy chủ đang chạy và truy cập được từ thiết bị.</p><p data-en>Yes. PM Smart is a client app that connects to your Home Assistant server over your local network or remotely. You need a running server reachable from your device.</p></details>
+      <details class="qa"><summary><span data-vi>PM Smart có phải app chính thức của Home Assistant không?</span><span data-en>Is PM Smart the official Home Assistant app?</span></summary><p data-vi>Không. PM Smart là ứng dụng độc lập của bên thứ ba, sử dụng API mở của Home Assistant nhưng không liên kết với dự án Home Assistant hay Nabu Casa.</p><p data-en>No. PM Smart is an independent, third-party app. It uses Home Assistant's open APIs but is not affiliated with the Home Assistant project or Nabu Casa.</p></details>
+      <details class="qa"><summary><span data-vi>App chạy trên thiết bị nào?</span><span data-en>What devices does it run on?</span></summary><p data-vi>PM Smart chạy trên iPhone với iOS 18 trở lên. Có widget màn hình chính và hỗ trợ Siri Shortcuts.</p><p data-en>PM Smart runs on iPhone with iOS 18 or later. It includes home screen widgets and Siri Shortcuts support.</p></details>
+      <details class="qa"><summary><span data-vi>App có dùng được từ xa, ngoài mạng nhà không?</span><span data-en>Does it work remotely, outside my home network?</span></summary><p data-vi>Có, miễn là máy chủ của bạn truy cập được từ xa — qua Nabu Casa, reverse proxy hoặc VPN. PM Smart kết nối tới địa chỉ bạn cung cấp, nội bộ hay từ xa đều được.</p><p data-en>Yes, as long as your server is reachable remotely — via Nabu Casa, a reverse proxy or a VPN. PM Smart connects to whatever URL you provide.</p></details>
+      <details class="qa"><summary><span data-vi>App có thu thập dữ liệu của tôi không?</span><span data-en>Does it collect my data?</span></summary><p data-vi>Không. PM Smart chỉ giao tiếp với máy chủ của bạn — không phân tích, không theo dõi, không máy chủ trung gian. Thông tin đăng nhập lưu trong iOS Keychain.</p><p data-en>No. PM Smart communicates only with your server — no analytics, no tracking, no middleman. Credentials are stored in the iOS Keychain.</p></details>
+      <details class="qa"><summary><span data-vi>App có thật sự miễn phí không?</span><span data-en>Is it really free?</span></summary><p data-vi>Có. PM Smart hoàn toàn miễn phí, không giới hạn thiết bị, không quảng cáo, không mua trong ứng dụng.</p><p data-en>Yes. PM Smart is completely free — no device limits, no ads, no in-app purchases.</p></details>
     </div>
   </div>
 </section>
