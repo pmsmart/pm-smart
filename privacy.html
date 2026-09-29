@@ -76,125 +76,157 @@
 
   <!-- ===================== TIẾNG VIỆT ===================== -->
   <div class="card" data-lang="vi" id="vi">
-    <p class="updated">Cập nhật lần cuối: 09/09/2026</p>
+    <p class="updated">Cập nhật lần cuối: 29/09/2026</p>
 
-    <p>Chính sách này mô tả cách ứng dụng <strong>PM Smart</strong> ("ứng dụng", "chúng tôi") xử lý thông tin của người dùng. Chúng tôi tôn trọng quyền riêng tư của bạn và cam kết minh bạch về việc sử dụng dữ liệu.</p>
+    <p>Chính sách này mô tả cách ứng dụng <strong>PM Smart</strong> ("ứng dụng") xử lý thông tin của bạn. "Chúng tôi" là nhà phát triển ứng dụng (xem mục 10). Chúng tôi tôn trọng quyền riêng tư của bạn và cam kết minh bạch về việc sử dụng dữ liệu.</p>
 
     <h2>1. Thông tin chúng tôi KHÔNG thu thập</h2>
     <p>PM Smart là ứng dụng kết nối trực tiếp với máy chủ nhà thông minh do chính bạn sở hữu và quản lý (VD: Home Assistant). Ứng dụng <strong>không</strong>:</p>
     <ul>
-      <li>Thu thập, truyền, hay lưu trữ thông tin cá nhân trên máy chủ của chúng tôi.</li>
+      <li>Thu thập hay lưu trữ thông tin cá nhân của bạn (tên, email, số điện thoại, vị trí...).</li>
       <li>Theo dõi hành vi sử dụng, vị trí hay thiết bị của bạn.</li>
       <li>Dùng công cụ phân tích hay quảng cáo của bên thứ ba.</li>
-      <li>Chia sẻ dữ liệu với bất kỳ bên nào bên ngoài.</li>
+      <li>Bán hay chia sẻ dữ liệu với bất kỳ bên nào vì mục đích thương mại.</li>
       <li>Yêu cầu tạo tài khoản hay đăng ký.</li>
     </ul>
-    <p>Chúng tôi không vận hành máy chủ nào nhận dữ liệu của bạn. Mọi kết nối diễn ra trực tiếp giữa thiết bị của bạn và máy chủ nhà thông minh của bạn.</p>
+    <p>Ngoại trừ máy chủ trung chuyển thông báo đẩy (xem mục 4), chúng tôi không vận hành máy chủ nào nhận dữ liệu của bạn. Mọi thao tác điều khiển nhà diễn ra trực tiếp giữa thiết bị của bạn và máy chủ nhà thông minh của bạn.</p>
 
     <h2>2. Dữ liệu lưu trên thiết bị của bạn</h2>
     <p>Ứng dụng lưu các dữ liệu sau <strong>chỉ trên thiết bị của bạn</strong>:</p>
     <ul>
-      <li><strong>Thông tin kết nối máy chủ</strong>: địa chỉ mạng nội bộ (LAN) / từ xa (WAN) bạn nhập.</li>
       <li><strong>Mã truy cập (token)</strong>: lưu an toàn trong iOS Keychain, được hệ điều hành mã hóa.</li>
-      <li><strong>Tùy chỉnh ứng dụng</strong>: bố cục phòng, tên thiết bị, ngôn ngữ, giao diện, và các thiết lập tương tự.</li>
+      <li><strong>Địa chỉ máy chủ</strong>: địa chỉ mạng nội bộ (LAN) / từ xa (WAN) bạn nhập, lưu trong bộ nhớ của ứng dụng trên máy.</li>
+      <li><strong>Tùy chỉnh ứng dụng</strong>: bố cục phòng, tên thiết bị, ngôn ngữ, giao diện và các thiết lập tương tự.</li>
       <li><strong>Trạng thái giao diện</strong>: thiết bị nào hiện ở màn Nhà, thứ tự yêu thích, v.v.</li>
+      <li><strong>Dữ liệu cho widget và Siri</strong>: một bản sao trạng thái thiết bị được lưu trong vùng dữ liệu dùng chung của ứng dụng (App Group) trên máy để widget và lệnh Siri hoạt động.</li>
     </ul>
-    <p>Dữ liệu này không bao giờ rời khỏi thiết bị. Khi bạn gỡ ứng dụng, iOS sẽ xóa toàn bộ dữ liệu lưu cục bộ.</p>
+    <p>Các dữ liệu trên không được gửi cho chúng tôi. Chúng có thể nằm trong bản sao lưu iCloud hoặc máy tính do iOS thực hiện, nếu bạn bật sao lưu.</p>
+    <p>Khi bạn gỡ ứng dụng, iOS xóa dữ liệu của ứng dụng; riêng mã truy cập trong Keychain có thể được iOS giữ lại. Để xóa hẳn mọi dữ liệu, hãy dùng "Xóa tất cả dữ liệu" trong ứng dụng trước khi gỡ.</p>
 
     <h2>3. Quyền truy cập</h2>
-    <p>Ứng dụng yêu cầu các quyền iOS sau:</p>
+    <p>Ứng dụng có thể yêu cầu các quyền iOS sau:</p>
     <ul>
       <li><strong>Mạng nội bộ (Local Network)</strong>: cần để dò tìm và kết nối máy chủ nhà thông minh trong mạng Wi-Fi nhà bạn.</li>
       <li><strong>Camera</strong>: chỉ dùng khi bạn bấm "Quét QR" để nhập nhanh mã truy cập. Camera không được dùng vào lúc nào khác. Không ảnh nào được lưu hay truyền đi.</li>
-      <li><strong>Thư viện ảnh</strong>: chỉ dùng khi bạn chọn "Từ ảnh" để nhập mã QR từ ảnh có sẵn. Ảnh được xử lý cục bộ để đọc mã QR, không được tải lên hay lưu ở nơi khác.</li>
+      <li><strong>Ảnh</strong>: khi bạn chọn "Từ ảnh" để nhập mã QR, chỉ ảnh bạn chọn được xử lý ngay trên máy để đọc mã. Ứng dụng không truy cập toàn bộ thư viện ảnh, không tải ảnh lên hay lưu ở nơi khác.</li>
+      <li><strong>Thông báo</strong>: chỉ khi bạn bật thông báo đẩy (xem mục 4).</li>
     </ul>
-    <p>Mọi quyền đều là tùy chọn. Ứng dụng vẫn hoạt động bình thường nếu bạn từ chối, tuy một số tính năng (tự dò tìm, quét QR) sẽ không dùng được.</p>
+    <p>Mọi quyền đều là tùy chọn. Ứng dụng vẫn hoạt động nếu bạn từ chối, tuy một số tính năng (tự dò tìm máy chủ, kết nối qua mạng nội bộ, quét QR, thông báo) sẽ không dùng được.</p>
 
     <h2>4. Thông báo đẩy (Push Notification)</h2>
-    <p>Nếu bạn bật thông báo đẩy, ứng dụng gửi <strong>mã thiết bị (device token)</strong> qua một máy chủ trung chuyển đến dịch vụ của Apple để gửi thông báo về điện thoại. <strong>Chỉ mã thiết bị</strong> đi qua máy chủ này — không có dữ liệu cá nhân, không có nội dung nhà thông minh của bạn. Nội dung thông báo được tạo bởi chính máy chủ Home Assistant của bạn. Nếu không bật thông báo, không có dữ liệu nào được gửi.</p>
+    <p>Nếu bạn bật thông báo đẩy, dữ liệu đi theo hai bước:</p>
+    <ul>
+      <li><strong>Đăng ký</strong>: ứng dụng gửi tới <strong>máy chủ Home Assistant của bạn</strong> mã thiết bị (device token) do Apple cấp, kèm tên thiết bị, loại máy, phiên bản iOS và phiên bản ứng dụng. Home Assistant cần các thông tin này để tạo dịch vụ thông báo cho điện thoại của bạn.</li>
+      <li><strong>Gửi thông báo</strong>: khi một automation gửi thông báo, máy chủ Home Assistant của bạn gửi mã thiết bị cùng tiêu đề và nội dung thông báo tới <strong>máy chủ trung chuyển thông báo đẩy do chúng tôi vận hành</strong> trên Cloudflare Workers. Máy chủ này chuyển ngay thông báo tới dịch vụ thông báo của Apple (APNs).</li>
+    </ul>
+    <p>Máy chủ trung chuyển xử lý dữ liệu như sau:</p>
+    <ul>
+      <li>Nội dung thông báo <strong>không được lưu</strong> và <strong>không được ghi nhật ký</strong>.</li>
+      <li>Để chống gửi quá nhiều, máy chủ đếm số thông báo của mỗi thiết bị trong ngày (tối đa 200 thông báo/ngày). Bộ đếm được xác định theo mã thiết bị, chỉ chứa một con số và <strong>tự động bị xóa sau khi hết ngày</strong> (theo giờ UTC).</li>
+      <li>Mã thiết bị không được dùng để nhận diện bạn, theo dõi hay quảng cáo. Dữ liệu thông báo chỉ được xử lý bởi hạ tầng Cloudflare (nơi chạy máy chủ trung chuyển) và Apple (dịch vụ gửi thông báo), không chia sẻ cho bên nào khác.</li>
+      <li>Nếu bạn không bật thông báo, không có dữ liệu nào đi qua máy chủ này. Khi bạn gỡ ứng dụng, Apple vô hiệu hóa mã thiết bị nên thông báo không còn được gửi tới máy. Để ngừng hẳn, bạn có thể xóa thiết bị khỏi tích hợp Mobile App trên máy chủ Home Assistant của bạn.</li>
+    </ul>
 
     <h2>5. Giao tiếp với máy chủ nhà thông minh của bạn</h2>
-    <p>Khi bạn nhập địa chỉ máy chủ và mã truy cập, ứng dụng giao tiếp trực tiếp với máy chủ đó qua HTTPS hoặc HTTP (tùy cấu hình của bạn). Chúng tôi không thấy và không kiểm soát dữ liệu mà máy chủ nhà thông minh của bạn xử lý hay lưu trữ. Vui lòng tham khảo chính sách bảo mật của nhà cung cấp máy chủ (VD: <a href="https://www.home-assistant.io/privacy/">Chính sách bảo mật Home Assistant</a>) để biết chi tiết.</p>
+    <p>Khi bạn nhập địa chỉ máy chủ và mã truy cập, ứng dụng giao tiếp trực tiếp với máy chủ đó qua HTTPS hoặc HTTP (tùy cấu hình của bạn). Hình ảnh camera (qua go2rtc), lệnh Siri và dữ liệu widget cũng đi trực tiếp giữa thiết bị và máy chủ của bạn, không qua chúng tôi.</p>
+    <p>Chúng tôi <strong>khuyến nghị dùng HTTPS</strong>, đặc biệt khi truy cập từ xa (WAN), vì kết nối HTTP không được mã hóa.</p>
+    <p>Chúng tôi không thấy và không kiểm soát dữ liệu mà máy chủ nhà thông minh của bạn xử lý hay lưu trữ. Vui lòng tham khảo chính sách bảo mật của nhà cung cấp máy chủ (VD: <a href="https://www.home-assistant.io/privacy/">Chính sách bảo mật Home Assistant</a>) để biết chi tiết.</p>
 
     <h2>6. Chế độ dùng thử (Demo)</h2>
-    <p>Nếu bạn dùng tính năng "Dùng thử", ứng dụng hoạt động hoàn toàn với dữ liệu mẫu tạo trên thiết bị. Không có yêu cầu mạng nào, không dữ liệu nào được gửi đi.</p>
+    <p>Nếu bạn dùng tính năng "Dùng thử", ứng dụng hoạt động hoàn toàn với dữ liệu mẫu tạo trên thiết bị. Không có yêu cầu mạng nào tới máy chủ nhà thông minh, không dữ liệu nào được gửi đi.</p>
 
-    <h2>7. Quyền riêng tư trẻ em</h2>
-    <p>PM Smart không hướng đến trẻ em dưới 13 tuổi, và chúng tôi không cố ý thu thập bất kỳ thông tin nào từ trẻ em.</p>
+    <h2>7. Độ tuổi</h2>
+    <p>PM Smart phù hợp với mọi lứa tuổi. Ứng dụng không thu thập thông tin cá nhân của bất kỳ ai, kể cả trẻ em.</p>
 
     <h2>8. Thương hiệu bên thứ ba</h2>
     <p>PM Smart tương thích với Home Assistant®, thương hiệu đã đăng ký của Nabu Casa, Inc. Ứng dụng này độc lập, không liên kết, không được bảo trợ hay tài trợ bởi Nabu Casa.</p>
 
     <h2>9. Thay đổi chính sách</h2>
-    <p>Chúng tôi có thể cập nhật chính sách này theo thời gian. Ngày "Cập nhật lần cuối" ở đầu trang cho biết lần sửa gần nhất. Việc tiếp tục sử dụng ứng dụng sau khi cập nhật đồng nghĩa với việc bạn chấp nhận chính sách mới.</p>
+    <p>Chúng tôi có thể cập nhật chính sách này theo thời gian. Ngày "Cập nhật lần cuối" ở đầu trang cho biết lần sửa gần nhất. Nếu có thay đổi đáng kể về cách xử lý dữ liệu, chúng tôi sẽ thông báo trong ứng dụng hoặc trong ghi chú phiên bản trên App Store trước khi thay đổi có hiệu lực.</p>
 
     <h2>10. Liên hệ</h2>
-    <p>Mọi thắc mắc về chính sách bảo mật, vui lòng liên hệ: <a href="mailto:phuocmanp@gmail.com">phuocmanp@gmail.com</a></p>
+    <p>Nhà phát triển: Pham Phuoc Man. Mọi thắc mắc về chính sách bảo mật, vui lòng liên hệ: <a href="mailto:phuocmanp@gmail.com">phuocmanp@gmail.com</a></p>
 
     <div class="note">
-      Tóm lại: PM Smart không thu thập dữ liệu cá nhân. Mọi thông tin nằm trên thiết bị của bạn hoặc máy chủ do bạn quản lý.
+      Tóm lại: PM Smart không thu thập dữ liệu cá nhân. Khi bạn bật thông báo đẩy, mã thiết bị và nội dung thông báo được chuyển tiếp qua máy chủ trung chuyển của chúng tôi tới Apple và không được lưu lại. Mọi dữ liệu khác nằm trên thiết bị của bạn hoặc máy chủ do bạn quản lý.
     </div>
   </div>
 
   <!-- ===================== ENGLISH ===================== -->
   <div class="card" data-lang="en" id="en">
-    <p class="updated">Last updated: September 9, 2026</p>
+    <p class="updated">Last updated: September 29, 2026</p>
 
-    <p>This Privacy Policy describes how the <strong>PM Smart</strong> mobile application ("the App", "we", "our") handles user information. We respect your privacy and are committed to transparency about data practices.</p>
+    <p>This Privacy Policy describes how the <strong>PM Smart</strong> mobile application ("the App") handles your information. "We", "us", and "our" refer to the developer of the App (see Section 10). We respect your privacy and are committed to being transparent about how data is handled.</p>
 
     <h2>1. Information We Do Not Collect</h2>
-    <p>PM Smart is a client application that connects directly to a smart home server you own and control (e.g. Home Assistant). The App <strong>does not</strong>:</p>
+    <p>PM Smart is a client application that connects directly to a smart home server you own and control (e.g., Home Assistant). The App <strong>does not</strong>:</p>
     <ul>
-      <li>Collect, transmit, or store any personal information on our servers.</li>
+      <li>Collect or store your personal information (name, email, phone number, location, etc.).</li>
       <li>Track your usage, location, or device behavior.</li>
       <li>Use third-party analytics or advertising SDKs.</li>
-      <li>Share any data with external parties.</li>
+      <li>Sell or share data with any party for commercial purposes.</li>
       <li>Require an account or user registration.</li>
     </ul>
-    <p>We do not operate any backend server that receives your data. All communication happens directly between your device and your own smart home server.</p>
+    <p>Except for the push notification relay server (see Section 4), we do not operate any server that receives your data. All home control happens directly between your device and your own smart home server.</p>
 
     <h2>2. Information Stored Locally on Your Device</h2>
     <p>The App stores the following data <strong>only on your device</strong>:</p>
     <ul>
-      <li><strong>Server connection details</strong>: LAN/WAN URLs you enter.</li>
       <li><strong>Access token</strong>: stored securely in iOS Keychain, encrypted by the operating system.</li>
+      <li><strong>Server addresses</strong>: the LAN/WAN URLs you enter, stored in the App's on-device storage.</li>
       <li><strong>App preferences</strong>: room layouts, device names, language, theme, and similar settings.</li>
       <li><strong>UI state</strong>: which devices appear on Home, favorite order, etc.</li>
+      <li><strong>Widget and Siri data</strong>: a copy of device states is kept in the App's shared container (App Group) on your device so widgets and Siri commands work.</li>
     </ul>
-    <p>This data never leaves your device. When you delete the App, all locally stored data is removed by iOS.</p>
+    <p>None of this data is sent to us. It may be included in iCloud or computer backups made by iOS, if you have backups enabled.</p>
+    <p>When you delete the App, iOS removes the App's data; however, the access token in Keychain may be retained by iOS. To erase everything, use "Erase all data" in the App before deleting it.</p>
 
-    <h2>3. Network Permissions</h2>
-    <p>The App requests the following iOS permissions:</p>
+    <h2>3. Permissions</h2>
+    <p>The App may request the following iOS permissions:</p>
     <ul>
       <li><strong>Local Network access</strong>: required to discover and connect to your smart home server on your home Wi-Fi (LAN).</li>
       <li><strong>Camera access</strong>: only used when you tap "Scan QR" to quickly enter an access token. The camera is not used at any other time. No images are stored or transmitted.</li>
-      <li><strong>Photo Library access</strong>: only used when you choose "From photo" to import a QR code image. The selected image is processed locally to decode the QR code. The image is not uploaded or stored elsewhere.</li>
+      <li><strong>Photos</strong>: when you choose "From photo" to import a QR code, only the image you select is processed on your device to read the code. The App does not access your whole photo library and does not upload or store the image elsewhere.</li>
+      <li><strong>Notifications</strong>: requested only if you choose to enable push notifications (see Section 4).</li>
     </ul>
-    <p>All permissions are optional. The App will function normally if you decline, though some features (auto-discovery, QR scanning) will be unavailable.</p>
+    <p>All permissions are optional. The App still works if you decline, though some features (server auto-discovery, LAN connection, QR scanning, notifications) will be unavailable.</p>
 
     <h2>4. Push Notifications</h2>
-    <p>If you enable push notifications, the App sends a <strong>device token</strong> through a relay server to Apple's service in order to deliver notifications to your phone. <strong>Only the device token</strong> passes through this server — no personal data, and none of your smart home content. Notification content is generated by your own Home Assistant server. If you do not enable notifications, no data is sent.</p>
+    <p>If you enable push notifications, data flows in two steps:</p>
+    <ul>
+      <li><strong>Registration</strong>: the App sends <strong>your own Home Assistant server</strong> the device token issued by Apple, along with the device name, device model, iOS version, and App version. Home Assistant needs this information to create the notification service for your phone.</li>
+      <li><strong>Sending a notification</strong>: when an automation sends a notification, your Home Assistant server sends the device token together with the notification title and message to <strong>the push notification relay server we operate</strong> on Cloudflare Workers. The relay immediately forwards the notification to Apple Push Notification service (APNs).</li>
+    </ul>
+    <p>The relay server handles data as follows:</p>
+    <ul>
+      <li>Notification content is <strong>neither stored nor logged</strong>.</li>
+      <li>To prevent abuse, the relay counts notifications per device per day (limit: 200 per day). The counter is keyed by the device token, holds only a number, and is <strong>automatically deleted after the day ends</strong> (UTC).</li>
+      <li>The device token is not used to identify you, track you, or show ads. Notification data is processed only by Cloudflare's infrastructure (which runs the relay) and Apple (which delivers notifications), and is not shared with anyone else.</li>
+      <li>If you do not enable notifications, no data passes through this server. When you delete the App, Apple invalidates the device token, so notifications are no longer delivered to your phone. To stop notifications entirely, you can remove the device from the Mobile App integration on your Home Assistant server.</li>
+    </ul>
 
     <h2>5. Communication With Your Smart Home Server</h2>
-    <p>When you enter a server address and access token, the App communicates directly with that server using standard HTTPS or HTTP (depending on your configuration). We have no visibility into or control over what data your smart home server processes or stores. Please refer to the privacy policy of your server provider (e.g. <a href="https://www.home-assistant.io/privacy/">Home Assistant Privacy Policy</a>) for details.</p>
+    <p>When you enter a server address and access token, the App communicates directly with that server using HTTPS or HTTP (depending on your configuration). Camera streams (via go2rtc), Siri commands, and widget data also travel directly between your device and your server, not through us.</p>
+    <p>We <strong>recommend using HTTPS</strong>, especially for remote (WAN) access, because HTTP connections are not encrypted.</p>
+    <p>We have no visibility into or control over what data your smart home server processes or stores. Please refer to the privacy policy of your server provider (e.g., the <a href="https://www.home-assistant.io/privacy/">Home Assistant Privacy Policy</a>) for details.</p>
 
     <h2>6. Demo Mode</h2>
-    <p>If you use the "Try Demo" feature, the App operates entirely with sample data generated on your device. No network requests are made, and no data is sent anywhere.</p>
+    <p>If you use the "Try Demo" feature, the App operates entirely with sample data generated on your device. No requests are made to any smart home server, and no data is sent anywhere.</p>
 
-    <h2>7. Children's Privacy</h2>
-    <p>PM Smart is not directed at children under 13, and we do not knowingly collect any information from children.</p>
+    <h2>7. Age</h2>
+    <p>PM Smart is suitable for all ages. The App does not collect personal information from anyone, including children.</p>
 
     <h2>8. Third-Party Trademarks</h2>
     <p>PM Smart is compatible with Home Assistant®, a registered trademark of Nabu Casa, Inc. This App is independent and not affiliated with, endorsed by, or sponsored by Nabu Casa.</p>
 
     <h2>9. Changes to This Policy</h2>
-    <p>We may update this Privacy Policy from time to time. The "Last updated" date at the top of this page indicates when the policy was last revised. Continued use of the App after changes constitutes acceptance of the updated policy.</p>
+    <p>We may update this Privacy Policy from time to time. The "Last updated" date at the top of this page indicates when the policy was last revised. If we make a material change to how data is handled, we will announce it in the App or in the App Store release notes before the change takes effect.</p>
 
     <h2>10. Contact</h2>
-    <p>If you have any questions about this Privacy Policy or the App's privacy practices, please contact: <a href="mailto:phuocmanp@gmail.com">phuocmanp@gmail.com</a></p>
+    <p>Developer: Pham Phuoc Man. If you have any questions about this Privacy Policy or the App's privacy practices, please contact us at <a href="mailto:phuocmanp@gmail.com">phuocmanp@gmail.com</a>.</p>
 
     <div class="note">
-      In short: PM Smart collects no personal data. All information stays on your device or on a server you control.
+      In short: PM Smart collects no personal data. If you enable push notifications, the device token and notification content are forwarded through our relay server to Apple and are not stored. All other information stays on your device or on a server you control.
     </div>
   </div>
 
